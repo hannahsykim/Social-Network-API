@@ -1,5 +1,5 @@
 
-const { User, Thought, Reaction } = require('../../models')
+const { User, Thought, Reaction } = require('../models')
 
 module.exports = {
     //TODO: ROUTE TO GET ALL THOUGHTS
@@ -23,7 +23,7 @@ module.exports = {
         .then(({_id}) => {
             return User.findOneAndUpdate(
                 {_id: req.body.userId},
-                {$push: {thoughts: thought._id}},
+                {$push: {thoughts: _id}},
                 {new: true}
             );
         })
