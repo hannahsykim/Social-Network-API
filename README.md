@@ -15,7 +15,7 @@
 
 ## Description <a id="description"></a>
 
-  This is a social media API that allows users to create a post, edit a post, delete a post, and comment on other posts. The user will be able to sign up or login into their account on the website. The user will be able to logout of their account as well. For this project, I used ```MongoDB```, ```Mongoose```, and ```Express.js```. I've also used a Javascript library called ```Moment.js``` to format the date and time. The seed data is created using ```Insomnia```.
+This is an API for a social network web application where users can share their thoughts, react to friends' thoughts, and create a friend list. For this project, I used ```MongoDB```, ```Mongoose```, and ```Express.js```. I've also used a Javascript library called ```Moment.js``` to format the date and time. The seed data is created using ```Insomnia```.
 
 ## Walk-through Demo <a id="walkthrough"></a>
 
