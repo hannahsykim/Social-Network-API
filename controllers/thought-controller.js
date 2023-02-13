@@ -1,15 +1,16 @@
 
-const { Thought, Reaction, User} = require('../../models')
+const { User, Thought, Reaction } = require('../../models')
 
 module.exports = {
     //TODO: ROUTE TO GET ALL THOUGHTS
     getAllThoughts(req,res) {
-        Thought.find()
+        Thought.find({})
         .then(thoughts => res.json(thoughts))
         .catch((err) => res.status(400).json(err));
     },
     getSingleThought(req,res) {
         Thought.findOne({_id: req.params.thoughtId})
+        .select(("-__v"))
         .then((thought) =>
         !thought 
             ? res.status(404).json({message: "No thought found with this id"}) 
@@ -19,15 +20,15 @@ module.exports = {
     },
     createThought(req,res) {
         Thought.create(req.body)
-        .then((thought) => {
+        .then(({_id}) => {
             return User.findOneAndUpdate(
-                {_id: req.params.userId},
+                {_id: req.body.userId},
                 {$push: {thoughts: thought._id}},
                 {new: true}
             );
         })
-        .then((user) => 
-        !user
+        .then((thought) => 
+        !thought
             ? res.status(404).json({message: "Thought created, but no user found with this id"})
             : res.json('Created thought')
         )
@@ -39,13 +40,13 @@ module.exports = {
     updateThought(req,res) {
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
-            {$push: req.body},
+            {$set: req.body},
             {runValidators: true, new: true}
         )
-        .then((thought) =>
+        .then((user) =>
         !thought
             ? res.status(404).json({message: "No thought found with this id"})
-            : res.json(thought)
+            : res.json(user)
         )
         .catch((err) => {
             console.log(err);
